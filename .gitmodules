@@ -1,0 +1,3 @@
+[submodule "shared_python_code"]
+	path = shared_python_code
+	url = git@github.com:dreisigmeyer/shared_python_code.git

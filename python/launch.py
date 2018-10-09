@@ -69,17 +69,17 @@ def get_standard_names(directory):
 
 # Start processing
 uspto_dir = 'uspto_data/'
-path_to_data = 'inData/'
+path_to_data = 'in_data/'
 path_to_JSON = 'python/json_data/'
-files = glob.glob(os.path.join(path_to_data, "*.zip"))
+files = glob.glob(os.path.join(path_to_data, "*.bz2"))
 random.shuffle(files)  # Newer years have more granted patents
 files_list = split_seq(files, number_of_processes)
 if __name__ == '__main__':
     pat_assg_info = get_assignee_info(uspto_dir)
     standard_names = get_standard_names(uspto_dir)
-    with open(path_to_JSON + 'zip3_cities.json') as json_data:
+    with open(path_to_JSON + 'city_state_to_zip3.json') as json_data:
         zips_dict = json.load(json_data)
-    with open(path_to_JSON + 'cityMisspellings.json') as json_data:
+    with open(path_to_JSON + 'city_misspellings.json') as json_data:
         cities_dict = json.load(json_data)
     procs = []
     for chunk in files_list:
