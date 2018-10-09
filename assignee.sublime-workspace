@@ -1,0 +1,521 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"gbd",
+				"grant_year_GBD"
+			],
+			[
+				"max",
+				"max_key\tstatement"
+			],
+			[
+				"sta",
+				"standardized_name\tstatement"
+			],
+			[
+				"gr",
+				"grant_yr\tstatement"
+			],
+			[
+				"a_",
+				"a_orgname\tstatement"
+			],
+			[
+				"gra",
+				"grant_year_gbd\tstatement"
+			],
+			[
+				"out",
+				"out_directory\tstatement"
+			],
+			[
+				"filen",
+				"filename\tparam"
+			],
+			[
+				"str",
+				"strip\tfunction"
+			],
+			[
+				"for",
+				"format\tfunction"
+			],
+			[
+				"tree",
+				"tree_err\tstatement"
+			],
+			[
+				"mv",
+				"mv_args\tstatement"
+			],
+			[
+				"iconv",
+				"iconvit_damnit"
+			],
+			[
+				"in",
+				"in_file\tstatement"
+			],
+			[
+				"gran",
+				"grant_yr\tparam"
+			],
+			[
+				"ex",
+				"except"
+			],
+			[
+				"in_",
+				"in_directory\tstatement"
+			],
+			[
+				"spl",
+				"split_args\tstatement"
+			],
+			[
+				"FILE",
+				"FILENAME"
+			],
+			[
+				"n",
+				"new"
+			],
+			[
+				"pro",
+				"program"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "python/__main__.py",
+			"settings":
+			{
+				"buffer_size": 264,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "python/launch.py",
+			"settings":
+			{
+				"buffer_size": 2820,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "python/get_assignee_information.py",
+			"settings":
+			{
+				"buffer_size": 14682,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pus",
+				"Git: Push"
+			],
+			[
+				"comm",
+				"Git: Commit"
+			],
+			[
+				"add",
+				"Git: Add All"
+			],
+			[
+				"ad",
+				"Git: Add All"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"com",
+				"Git: Commit"
+			],
+			[
+				"pusg",
+				"Git: Push Tags"
+			],
+			[
+				"pull",
+				"Git: Pull"
+			],
+			[
+				"pu",
+				"Git: Push"
+			],
+			[
+				"gitad",
+				"Git: Add All"
+			],
+			[
+				"markdo",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"gita",
+				"Git: Add All"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"git",
+				"Git: Commit"
+			],
+			[
+				"gitcom",
+				"Git: Commit"
+			],
+			[
+				"git:",
+				"Git: Push"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/efw/git-code/assignee"
+	],
+	"file_history":
+	[
+		"/home/efw/git-code/xml_rewrite/rewriter/rewriter.py",
+		"/home/efw/git-code/xml_rewrite/xml_rewrite.sublime-project",
+		"/home/efw/.config/sublime-text-3/Packages/User/Anaconda.sublime-settings",
+		"/home/efw/.config/sublime-text-3/Packages/Anaconda/Anaconda.sublime-settings",
+		"/home/efw/git-code/assignee/python/setup.cfg",
+		"/home/efw/git-code/assignee/.gitignore",
+		"/home/efw/git-code/xml_rewrite/README.md",
+		"/home/efw/git-code/xml_rewrite/.gitignore",
+		"/home/efw/git-code/xml_rewrite/rewriter/__main__.py",
+		"/home/efw/git-code/xml_rewrite/run_it.sh",
+		"/home/efw/git-code/xml_rewrite/rewriter/__init__.py",
+		"/home/efw/git-code/carra_prep/python_validation/runit.sh",
+		"/home/efw/git-code/xml_rewrite/xml_documentation/st_32.pdf",
+		"/home/efw/git-code/xml_rewrite/bash_functions.sh",
+		"/home/efw/.config/sublime-text-3/Packages/Git/Git.sublime-settings",
+		"/home/efw/.config/sublime-text-3/Packages/User/Git.sublime-settings",
+		"/home/efw/Downloads/DTDS/redbook.cat",
+		"/home/efw/Downloads/DTDS/xml.dcl",
+		"/home/efw/git-code/xml_rewrite/rewriter/DTDs/us-patent-grant-v40-2004-12-02.dtd",
+		"/home/efw/git-code/tsnmf/tnmf_analysis/src/tnmf.py",
+		"/home/efw/git-code/tsnmf/fortran/glda.f90",
+		"/home/efw/.config/sublime-text-3/Packages/User/Package Control.sublime-settings"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"last_uspto_dvd_year",
+			"xml_validator",
+			"max",
+			"2015",
+			"max",
+			"pat_assg_info",
+			"xmlr",
+			"\\n",
+			"\"",
+			"find",
+			"out_dir_path"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"LAST_USPTO_DVD_YEAR"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "python/__main__.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 264,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								264,
+								264
+							]
+						],
+						"settings":
+						{
+							"SL.24.region_keys":
+							[
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "python/launch.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2820,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								577,
+								577
+							]
+						],
+						"settings":
+						{
+							"SL.25.region_keys":
+							[
+							],
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 459.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "python/get_assignee_information.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14682,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14366,
+								14366
+							]
+						],
+						"settings":
+						{
+							"SL.15.region_keys":
+							[
+							],
+							"SL.26.region_keys":
+							[
+							],
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 120.0
+	},
+	"pinned_build_system": "",
+	"project": "assignee.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 266.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

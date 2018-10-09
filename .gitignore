@@ -1,0 +1,16 @@
+# stuff from sublime text
+*.sublime-project
+
+*.cfg
+*.zip
+*.csv
+nohup*
+messages
+ASG_NAMES_UPRD_69_15.TXT
+PN_ASG_UPRD_69_15.TXT
+CMakeLists.txt
+/cmake-build-debug
+/.idea
+/inData
+/outData
+/python/holdData
