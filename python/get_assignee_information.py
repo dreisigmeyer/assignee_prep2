@@ -1,123 +1,23 @@
-# -*- coding: utf-8 -*-
-
-"""
-The patent bulk download data (from Google or USPTO) should be cleaned with
-the GBD_data_cleaner before being used here.  That removes HTML entities and
-performs other cleaning on the XML files.
-
-This outputs the assignee data from the Google Bulk Download and the USPTO
-DVD.  The format is:
-xml_pat_num|uspto_pat_num|grant_yr|app_yr|co_name_google|\
-assg_num|assg_type|city|st|country|co_raw_name_uspto|co_cleaned_name_uspto|\
-zip3|new_state|co_possible_name
-
-new_state is if the raw state information from the GBD XML file is potentially
-incorrect.  It is the actual state that corresponds to zip3. It may simply
-repeat the st entry. The city is the same.  The zip3 information is inferred
-from the assignee City-State information.
-
-assg_num is the position of the assignee in the XML file.  co_raw_name_uspto
-and co_cleaned_name_uspto are only present for assg_num = 1.
-
-assg_type is one of the following:
-     1    = unassigned
-     2    = assigned to a U.S. non-government organization
-     3    = assigned to a foreign non-government organization
-     4    = assigned to a U.S. individual
-     5    = assigned to a foreign individual
-     6    = assigned to the U.S. (Federal) Government
-     7    = assigned to a foreign government
-     8,9  = assigned to a U.S. non-Federal Government agency
-              (8 and 9 may not appear)
-
-This requires Python 2.7. It was developed using Anaconda 2.30 (Python 2.7.10).
-You should use Anaconda or be prepared to track down and install all of the
-necessary Python packages.
-
-To run this make this file executable and do:
-    ./get_assignee_information.py num_of_processes
-num_of_processes >=1 is the number of individual Python processes to run.
-
-The XML paths are given below for the Google bulk download.  Make
-sure they haven't changed if you have problems.
-
-Make sure the USPTO file names haven't changed in below if you have troubles.
-
-All of the date formats are expected to be %Y%m%d
-
-Created by David W. Dreisigmeyer 5 Oct 15
-"""
-
 import codecs
 import csv
 import glob
 import json
 import os
 import re
-import unicodedata
 from datetime import datetime
 from difflib import SequenceMatcher as SeqMatcher
-
+from preprocessing.shared_python_code.process_text import clean_patnum
+from preprocessing.shared_python_code.process_text import dateFormat
+from preprocessing.shared_python_code.process_text import get_assignee_info
+from preprocessing.shared_python_code.process_text import grant_year_re
+from preprocessing.shared_python_code.xml_paths import magic_validator
 from lxml import etree
 
-cw_dir = os.getcwd()
-pat_num_re = re.compile(r'([A-Z]*)0*([0-9]+)')
-dateFormat = '%Y%m%d'  # The dates are expected in %Y%m%d format
-grant_year_re = re.compile('[a-z]{3,4}([0-9]{8})_wk[0-9]{2}')
-xml_validator = etree.XMLParser(
-    dtd_validation=False,
-    resolve_entities=False,
-    encoding='utf8')
+THIS_DIR = os.path.dirname(__file__)
 path_to_JSON = 'python/json_data/'
 LAST_USPTO_DVD_YEAR = 2015
 with open(path_to_JSON + 'close_city_spellings.json') as json_data:
     CLOSE_CITY_SPELLINGS = json.load(json_data)
-
-
-def clean_patnum(patnum):
-    """
-    Removes extraneous zero padding
-    """
-    pat_num = patnum.strip().upper()
-    hold_pat_num = pat_num_re.match(pat_num).groups()
-    pat_num_len = len(hold_pat_num[0] + hold_pat_num[1])
-    zero_padding = '0' * (7 - pat_num_len)
-    pat_num = hold_pat_num[0] + zero_padding + hold_pat_num[1]
-    zero_padding = '0' * (8 - pat_num_len)
-    xml_pat_num = hold_pat_num[0] + zero_padding + hold_pat_num[1]
-    return xml_pat_num, pat_num
-
-
-def clean_it(in_str):
-    if isinstance(in_str, str):
-        return in_str.decode('unicode_escape')
-    else:
-        return ''
-
-
-def to_ascii(applicant_text):
-    """
-    Clean up the string
-    """
-    applicant_text = clean_it(applicant_text)
-    # Replace utf-8 characters with their closest ascii
-    applicant_text = unicodedata.normalize('NFKD', applicant_text)
-    applicant_text = applicant_text.encode('ascii', 'ignore')
-    applicant_text = applicant_text.replace('&', ' AND ')
-    applicant_text = ' '.join(applicant_text.split())
-    applicant_text = re.sub('[^a-zA-Z0-9 ]+', '', applicant_text).upper()
-    return applicant_text.strip()
-
-
-def get_assignee_info(assignee, xml_path):
-    """
-    """
-    try:
-        assignee_info = assignee.find(xml_path).text
-        assignee_info = to_ascii(assignee_info)
-    except Exception:  # may have assignee name from USPTO DVD
-        assignee_info = ''
-    return assignee_info
 
 
 def get_zip3(assignee_state, assignee_city, zip3_json, cleaned_cities_json):
@@ -172,14 +72,14 @@ def get_info(files, zip3_json, cleaned_cities_json, pat_assg_info, standard_name
     for infile in files:
         folder_name = os.path.splitext(os.path.basename(infile))[0]
         # Get data in and ready
-        folder_path = cw_dir + "/python/holdData/" + folder_name + "/"
+        folder_path = THIS_DIR + "/python/holdData/" + folder_name + "/"
         os.system("mkdir " + folder_path)
         os.system("unzip -qq -o " + infile + " -d " + folder_path)
         xml_split = glob.glob(folder_path + "/*.xml")
         out_file_name = os.path.splitext(os.path.basename(infile))[0]
         csv_file = codecs.open("outData/" + out_file_name + ".csv", 'w', 'ascii')
         csv_writer = csv.writer(csv_file, delimiter='|')
-        grant_year_gbd = int(grant_year_re.match(folder_name).group(1)[:4])
+        grant_year_gbd = int(grant_year_re.match(folder_name).group(1))
         """
         These are the XML paths we use to extract the data.
         Note: if the path is rel_path_something_XXX then this is a path that is
@@ -223,7 +123,7 @@ def get_info(files, zip3_json, cleaned_cities_json, pat_assg_info, standard_name
 
         # Run the queries
         for xmlDoc in xml_split:
-            root = etree.parse(xmlDoc, xml_validator)
+            root = etree.parse(xmlDoc, magic_validator)
 
             try:  # to get patent number
                 xml_patent_number = root.find(path_patent_number).text
@@ -294,11 +194,11 @@ def get_info(files, zip3_json, cleaned_cities_json, pat_assg_info, standard_name
                     assignee_information.append('')
                 if assignees_counter == 1 and grant_year_gbd <= LAST_USPTO_DVD_YEAR:
                     try:
-                        assignee_information.append(pat_assg_info[patent_number][0])
+                        assignee_information.append(pat_assg_info[xml_patent_number][0])
                     except Exception:
                         assignee_information.append('')
                     try:
-                        assignee_information.append(pat_assg_info[patent_number][1])
+                        assignee_information.append(pat_assg_info[xml_patent_number][1])
                     except Exception:
                         assignee_information.append('')
                 else:
@@ -335,7 +235,7 @@ def get_info(files, zip3_json, cleaned_cities_json, pat_assg_info, standard_name
 
             # make sure we at least tried to get every applicant
             if number_assignees_to_process != assignees_counter:
-                print("WARNING: Didn't process every assignee on patent " + patent_number)
+                print("WARNING: Didn't process every assignee on patent " + xml_patent_number)
         # Clean things up
         csv_file.close()
         os.system("rm -rf " + folder_path)
