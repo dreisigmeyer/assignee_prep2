@@ -32,7 +32,7 @@ from shared_python_code.xml_paths import split_seq
 #     return newseq
 
 
-def get_assignee_info(directory):
+def get_uspto_assignee_info(directory):
     asg_names_file = glob.glob(directory + "ASG_NAMES_*.TXT")
     pat_names_file = glob.glob(directory + "PN_ASG_*.TXT")
     asg_names = {}
@@ -53,6 +53,7 @@ def get_assignee_info(directory):
     return pat_asg_info
 
 
+# NOTES: Construct this from new patent_metadata file and get_uspto_assignee_info results
 def get_standard_names(directory):
     standard_names_file = "standard_names.csv"
     standard_names = {}
@@ -76,7 +77,7 @@ def process_assignees(path_to_data, number_of_processes):
     files = glob.glob(os.path.join(path_to_data, "*.bz2"))
     random.shuffle(files)  # Newer years have more granted patents
     files_list = split_seq(files, number_of_processes)
-    pat_assg_info = get_assignee_info(uspto_dir)
+    pat_assg_info = get_uspto_assignee_info(uspto_dir)
     standard_names = get_standard_names(uspto_dir)
     with open(path_to_JSON + 'city_state_to_zip3.json') as json_data:
         zips_dict = json.load(json_data)
