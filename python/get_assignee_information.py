@@ -1,74 +1,26 @@
 import codecs
 import csv
 import glob
-import json
+# import json
 import os
 import re
 from datetime import datetime
-from difflib import SequenceMatcher as SeqMatcher
-from preprocessing.shared_python_code.process_text import clean_patnum
-from preprocessing.shared_python_code.process_text import dateFormat
-from preprocessing.shared_python_code.process_text import get_assignee_info
-from preprocessing.shared_python_code.process_text import grant_year_re
-from preprocessing.shared_python_code.xml_paths import magic_validator
+# from difflib import SequenceMatcher as SeqMatcher
+from shared_python_code.process_text import clean_patnum
+from shared_python_code.process_text import dateFormat
+from shared_python_code.process_text import get_assignee_info
+from shared_python_code.process_text import grant_year_re
+from shared_python_code.xml_paths import magic_validator
+from shared_python_code.utility_functons import initialize_close_city_spelling
 from lxml import etree
 
 THIS_DIR = os.path.dirname(__file__)
 path_to_JSON = 'python/json_data/'
 LAST_USPTO_DVD_YEAR = 2015
-with open(path_to_JSON + 'close_city_spellings.json') as json_data:
-    CLOSE_CITY_SPELLINGS = json.load(json_data)
-
-
-def get_zip3(assignee_state, assignee_city, zip3_json, cleaned_cities_json):
-    """
-    Attempts to find a zip3 from an assignee's city and state information.
-    """
-    possible_zip3s = dict()
-    possible_cities = [assignee_city]
-    cleaned_cities = cleaned_cities_json.get(assignee_state)
-    if cleaned_cities:
-        for hold_city, spellings in cleaned_cities.iteritems():
-            if hold_city not in possible_cities:
-                if assignee_city[:20] in spellings:
-                    possible_cities.append(hold_city)
-    city_names = zip3_json.get(assignee_state)
-    close_city_names = CLOSE_CITY_SPELLINGS.get(assignee_state)
-    if close_city_names:
-        close_city_names_keys = close_city_names.keys()
-    else:
-        close_city_names_keys = []
-    for alias in possible_cities:
-        if alias in close_city_names_keys:  # is the name ok?
-            for zip3 in close_city_names[alias]:
-                possible_zip3s[zip3] = assignee_state
-            continue
-        # is this a real state?
-        if assignee_state not in CLOSE_CITY_SPELLINGS.keys():
-            continue
-        CLOSE_CITY_SPELLINGS[assignee_state][alias] = set()  # this isn't there
-        # this may be a new misspelling, which we're going to check for now
-        if city_names:
-            for city, zips in city_names.iteritems():
-                str_match = SeqMatcher(None, alias, city)
-                if str_match.ratio() >= 0.9:  # good enough match
-                    CLOSE_CITY_SPELLINGS[assignee_state][alias].update(zips)
-                    for zip3 in zips:
-                        possible_zip3s[zip3] = assignee_state
-    # Maybe the state is wrong so look for a matching city name
-    if len(possible_zip3s) == 0:
-        states = zip3_json.keys()
-        for state in states:
-            zips = zip3_json[state].get(assignee_city)
-            if zips:
-                for zip3 in zips:
-                    possible_zip3s[zip3] = state
-    if not possible_zip3s:  # in case wee didn't find a zip3
-        possible_zip3s[''] = ''
-    return possible_zip3s
 
 
 def get_info(files, zip3_json, cleaned_cities_json, pat_assg_info, standard_names):
+    get_zip3 = initialize_close_city_spelling(path_to_JSON)
     for infile in files:
         folder_name = os.path.splitext(os.path.basename(infile))[0]
         # Get data in and ready
@@ -204,14 +156,13 @@ def get_info(files, zip3_json, cleaned_cities_json, pat_assg_info, standard_name
                 else:
                     assignee_information.append('')
                     assignee_information.append('')
-
-                possible_zip3s = dict()
-                possible_zip3s[''] = ''
                 if a_state != '' and a_city != '':
                     try:
                         possible_zip3s = get_zip3(a_state, a_city, zip3_json, cleaned_cities_json)
                     except Exception:
                         pass
+                if not possible_zip3s:
+                    possible_zip3s[''] = ''
 
                 for zip3, state in possible_zip3s.iteritems():
                     hold_csv_line = list(assignee_information)
