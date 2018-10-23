@@ -1,5 +1,5 @@
 #!/bin/bash
 
-source activate carra_prep
-python python >> messages
-./get_iops.sh
+# source activate carra_prep
+python -m python
+# ./get_iops.sh
