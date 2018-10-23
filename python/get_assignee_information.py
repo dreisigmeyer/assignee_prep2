@@ -69,7 +69,7 @@ def get_info(files, zip3_json, cleaned_cities_json, pat_assg_info, standard_name
                         assignee_information.append(a_orgname)
                     except Exception:
                         a_orgname = ''
-                        assignee_information.append('')
+                        assignee_information.append(a_orgname)
                     assignee_information.append(assignees_counter)
                     try:
                         a_type = get_assignee_info(assignee, assg_type)
@@ -117,24 +117,24 @@ def get_info(files, zip3_json, cleaned_cities_json, pat_assg_info, standard_name
                         hold_csv_line.extend([zip3, state])
                         if grant_year_gbd > LAST_USPTO_DVD_YEAR and a_orgname:
                             try:
-                                hold_names = standard_names[a_orgname][LAST_USPTO_DVD_YEAR]
+                                grant_year = str(LAST_USPTO_DVD_YEAR)
+                                hold_names = standard_names[a_orgname][grant_year]
                                 for name in hold_names:
                                     csv_writer.writerow(hold_csv_line + [name])
                             except Exception:
                                 csv_writer.writerow(hold_csv_line + [''])
                         elif assignees_counter != 1 and a_orgname:
                             try:
-                                hold_names = standard_names[a_orgname][grant_year_gbd]
+                                grant_year = str(grant_year_gbd)
+                                hold_names = standard_names[a_orgname][grant_year]
                                 for name in hold_names:
                                     csv_writer.writerow(hold_csv_line + [name])
                             except Exception:
                                 csv_writer.writerow(hold_csv_line + [''])
                         else:
                             csv_writer.writerow(hold_csv_line + [''])
-
                 # make sure we at least tried to get every applicant
                 if number_assignees_to_process != assignees_counter:
                     print("WARNING: Didn't process every assignee on patent " + xml_patent_number)
         # Clean things up
-        # csv_file.close()
         os.system("rm -rf " + folder_path)

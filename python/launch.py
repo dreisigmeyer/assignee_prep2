@@ -6,6 +6,7 @@ import random
 from multiprocessing import Process
 from python.get_assignee_information import get_info
 from shared_python_code.process_text import clean_patnum
+from shared_python_code.process_text import standardize_name
 from shared_python_code.utility_functons import split_seq
 
 
@@ -40,11 +41,16 @@ def get_standard_names(directory, pat_assg_info):
         csv_reader = csv.reader(csvfile)
         for line in csv_reader:
             try:
-                prdn = line[0]
+                xml_pat_num, _ = clean_patnum(line[0])
                 grant_yr = line[1]
-                xml_name = line[-1]
-                standardized_name = pat_assg_info[prdn][1]
-                standard_names[xml_name][grant_yr] = standardized_name
+                xml_name = standardize_name(line[-1])
+                standardized_name = pat_assg_info[xml_pat_num][1]
+                if xml_name not in standard_names:
+                    standard_names[xml_name] = {}
+                if grant_yr not in standard_names[xml_name]:
+                    standard_names[xml_name][grant_yr] = []
+                if standardized_name not in standard_names[xml_name][grant_yr]:
+                    standard_names[xml_name][grant_yr].append(standardized_name)
             except Exception as e:
                 pass
     return standard_names
