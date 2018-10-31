@@ -12,19 +12,18 @@
 The code was run with a standard Anaconda Python 3 environment (https://www.anaconda.com).
 
 ## Running the code
-1.  From the **carra_prep** repository:
+1.  From the **carra_prep2** repository:
 	* _create\_GBD\_metadata_ is run to generate JSON files
 	for attaching zip3s, correcting city-state information, etc.
-	Copy the files (in the **carra_prep** top directory)
+	Copy the files in the **carra_prep2/outputs/json_output** directory
 	_close\_city\_spellings.json_,
 	_city\_state\_to\_zip3.json_ and
 	_city\_mispellings.json_
-	into _python/json\_data_.
-    * _python\_validation_ creates valid XML documents from the original XML files (2002-present).
-    Copy the files from _python\_validation/outData/_ to _inData/_.
+	into **json_data**.
+    * Copy the valid XML files from **carra_prep2/outputs/xml_output/xml_with_inventors** to **xml_data**.
 2.  From this directory issue the command  
     `nohup ./run_it &`  
-    This will create an _iops.csv_ file as well as one output file in _out_data/_ per USPTO weekly release.
+    This will create an _iops.csv_ file as well as one output file in **out_data** per USPTO weekly release.
     The output format is  
     `xml_pat_num|uspto_pat_num|grant_yr|app_yr|co_name_google|assg_num|assg_type|city|st|country|co_raw_name_uspto|co_cleaned_name_uspto|zip3|new_state|inferred_cleaned_name_uspto`  
     _new\_state_ is if the raw state information from the GBD XML file is potentially incorrect.
