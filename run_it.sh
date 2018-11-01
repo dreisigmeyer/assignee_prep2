@@ -1,5 +1,6 @@
 #!/bin/bash
 
-# source activate carra_prep
-python -m python
-# ./get_iops.sh
+NUMBER_OF_THREADS=$1
+
+python -m python $NUMBER_OF_THREADS
+./get_iops.sh
