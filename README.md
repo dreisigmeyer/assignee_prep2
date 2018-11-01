@@ -22,7 +22,7 @@ The code was run with a standard Anaconda Python 3 environment (https://www.anac
 	into **json_data**.
     * Copy the valid XML files from **carra_prep2/outputs/xml_output/xml_with_inventors** to **xml_data**.
 2.  From this directory issue the command  
-    `nohup ./run_it &`  
+    `nohup ./run_it number_of_threads_to_use &`  
     This will create an _iops.csv_ file as well as one output file in **out_data** per USPTO weekly release.
     The output format is  
     `xml_pat_num|uspto_pat_num|grant_yr|app_yr|co_name_google|assg_num|assg_type|city|st|country|co_raw_name_uspto|co_cleaned_name_uspto|zip3|new_state|inferred_cleaned_name_uspto`  
