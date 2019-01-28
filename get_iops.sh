@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This collects together all of the needed information for 
+# Individually Owned Patents
+
 rm -f trash.csv
 rm -f iops.csv
 
