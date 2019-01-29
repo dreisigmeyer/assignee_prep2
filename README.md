@@ -52,4 +52,36 @@ The code was run with a standard Anaconda Python 3 environment (https://www.anac
 
 
 ## The individual pieces of the code
-The **python** module
+1.  The **python** module collects together the basic information about assignees.
+The functions provided in **launch.py** are:
+```
+get_uspto_assignee_info(directory):
+    Retrieves the assignee names on the USPTO DVD.
+
+    directory -- directory where the DVD files are located.
+```
+```
+get_standard_names(directory, pat_assg_info):
+    Creates a xml_name to USPTO standardized name mapping by grant year.
+
+    directory -- location of the prdn_metadata.csv file created by carra_prep.
+    pat_assg_info -- output of get_uspto_assignee_info.
+```
+```
+process_assignees(number_of_processes):
+    Driver function that collects the XML data into CSV files.
+
+    number_of_processes -- number of Python threads to use
+```
+
+The functions provided in **get_assignee_information.py** are:
+```
+get_info(files, zip3_json, cleaned_cities_json, pat_assg_info, standard_names):
+    Collects all of the assignee information.
+
+    files -- list of compressed XML files to process.
+    zip3_json -- dictionary created from the carra prep city_state_to_zip3.json file.
+    cleaned_cities_json -- dictionary created from the carra prep city_misspellings.json file.
+    pat_assg_info -- basic information extracted from the USPTO DVD.
+    standard_names -- standardized assignee names.
+```

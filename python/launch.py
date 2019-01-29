@@ -11,7 +11,9 @@ from shared_python_code.utility_functons import split_seq
 
 
 def get_uspto_assignee_info(directory):
-    '''
+    '''Retrieves the assignee names on the USPTO DVD.
+
+    directory -- directory where the DVD files are located.
     '''
     asg_names_file = glob.glob(directory + "ASG_NAMES_*.TXT")[0]
     pat_names_file = glob.glob(directory + "PN_ASG_*.TXT")[0]
@@ -33,7 +35,10 @@ def get_uspto_assignee_info(directory):
 
 
 def get_standard_names(directory, pat_assg_info):
-    '''
+    '''Creates a xml_name to USPTO standardized name mapping by grant year.
+
+    directory -- location of the prdn_metadata.csv file created by carra_prep.
+    pat_assg_info -- output of get_uspto_assignee_info.
     '''
     standard_names_file = directory + "prdn_metadata.csv"
     standard_names = {}
@@ -58,7 +63,9 @@ def get_standard_names(directory, pat_assg_info):
 
 # Start processing
 def process_assignees(number_of_processes):
-    '''
+    '''Driver function that collects the XML data into CSV files.
+
+    number_of_processes -- number of Python threads to use
     '''
     uspto_dir = 'uspto_data/'
     csv_dir = 'csv_data/'

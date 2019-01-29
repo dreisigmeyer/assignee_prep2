@@ -20,7 +20,13 @@ LAST_USPTO_DVD_YEAR = 2015
 
 
 def get_info(files, zip3_json, cleaned_cities_json, pat_assg_info, standard_names):
-    '''
+    '''Collects all of the assignee information.
+
+    files -- list of compressed XML files to process.
+    zip3_json -- dictionary created from the carra prep city_state_to_zip3.json file.
+    cleaned_cities_json -- dictionary created from the carra prep city_misspellings.json file.
+    pat_assg_info -- basic information extracted from the USPTO DVD.
+    standard_names -- standardized assignee names.
     '''
     get_zip3 = initialize_close_city_spelling(close_city_spellings)
     for in_file in files:
