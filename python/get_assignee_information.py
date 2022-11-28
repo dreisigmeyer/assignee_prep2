@@ -34,7 +34,26 @@ def get_info(files, zip3_json, cleaned_cities_json, pat_assg_info, standard_name
         # Get data in and ready
         folder_path = hold_folder_path + folder_name
         with tarfile.open(name=in_file, mode='r:bz2') as tar_file:
-            tar_file.extractall(path=folder_path)
+            def is_within_directory(directory, target):
+                
+                abs_directory = os.path.abspath(directory)
+                abs_target = os.path.abspath(target)
+            
+                prefix = os.path.commonprefix([abs_directory, abs_target])
+                
+                return prefix == abs_directory
+            
+            def safe_extract(tar, path=".", members=None, *, numeric_owner=False):
+            
+                for member in tar.getmembers():
+                    member_path = os.path.join(path, member.name)
+                    if not is_within_directory(path, member_path):
+                        raise Exception("Attempted Path Traversal in Tar File")
+            
+                tar.extractall(path, members, numeric_owner=numeric_owner) 
+                
+            
+            safe_extract(tar_file, path=folder_path)
             out_file_name = os.path.basename(in_file)
             out_file_name = out_file_name.rsplit('.')[0]
             xml_split = glob.glob(folder_path + out_file_name + "/*.xml")
